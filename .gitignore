@@ -6,7 +6,6 @@ __pycache__/
 # C extensions
 *.so
 
-# Distribution / packaging
 .Python
 build/
 develop-eggs/
@@ -68,7 +67,6 @@ instance/
 # Scrapy stuff:
 .scrapy
 
-# Sphinx documentation
 docs/_build/
 
 # PyBuilder
@@ -216,3 +214,23 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Dataset files - never push to GitHub
+data/*.json
+data/*.csv
+data/*.xlsx
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# Model checkpoints - too large for GitHub
+*.pt
+*.bin
+*.h5
+checkpoints/
+
+# Python
+__pycache__/
+*.pyc
+.env
