@@ -61,20 +61,22 @@ def apply_normalization(df):
     print(f"  After normalization: {len(df):,} records\n")
     return df
 
+#downsample 
 def downsample(df, samples_per_class, seed):
     print(f"Downsampling to {samples_per_class:,} samples per class...")
-    df_balanced = (
-        df.groupby('Region', group_keys=False)
-          .apply(lambda x: x.sample(
-              min(len(x), samples_per_class),
-              random_state=seed
-          ))
-    )
-    df_balanced = df_balanced.reset_index(drop=True)
+    
+    sampled_groups = []
+    for region, group in df.groupby('Region'):
+        sampled = group.sample(
+            min(len(group), samples_per_class),
+            random_state=seed
+        )
+        sampled_groups.append(sampled)
+    
+    df_balanced = pd.concat(sampled_groups).reset_index(drop=True)
     print(f"  After downsampling: {len(df_balanced):,} records")
     print(f"  Region counts:\n{df_balanced['Region'].value_counts()}\n")
     return df_balanced
-
 
 # Split
 def split_and_save(df, test_size, seed, train_path, test_path):
